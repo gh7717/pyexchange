@@ -11,6 +11,7 @@ from ..base.folder import BaseExchangeFolder, BaseExchangeFolderService
 from ..base.soap import ExchangeServiceSOAP
 from ..exceptions import FailedExchangeException, ExchangeStaleChangeKeyException, ExchangeItemNotFoundException, ExchangeInternalServerTransientErrorException, ExchangeIrresolvableConflictException, InvalidEventType
 from ..compat import BASESTRING_TYPES
+from ..base.mail import BaseExchangeMailService
 
 from . import soap_request
 
@@ -27,9 +28,8 @@ class Exchange2010Service(ExchangeServiceSOAP):
   def calendar(self, id="calendar"):
     return Exchange2010CalendarService(service=self, calendar_id=id)
 
-  def mail(self):
-    raise NotImplementedError("Sorry - nothin' here. Feel like adding it? :)")
-
+  def mail(selfi, id="mail"):
+    return Exchange2010MailService(service=self, mail_id=id)
   def contacts(self):
     raise NotImplementedError("Sorry - nothin' here. Feel like adding it? :)")
 
@@ -79,7 +79,17 @@ class Exchange2010Service(ExchangeServiceSOAP):
       elif code.text != u"NoError":
         raise FailedExchangeException(u"Exchange Fault (%s) from Exchange server" % code.text)
 
-
+class Exchange2010MailService(BaseExchangeMailService):
+  def list_mails(self, id=None):
+    raise NotImplementedError("Sorry - nothin' in list_mails. Feel like adding it? :)") 
+  def get_mail():
+    raise NotImplementedError("Sorry - nothin' in get_mail. Feel like adding it? :)")
+  def new_mail():
+    raise NotImplementedError("Sorry - nothin' in new_mail. Feel like adding it? :)")
+  def send_mail():
+    raise NotImplementedError("Sorry - nothin' in send_mail. Feel like adding it? :)")
+  def new_mail_event():
+    raise NotImplementedError("Sorry - nothin' in new_mail_event. Feel like adding it? :)")
 class Exchange2010CalendarService(BaseExchangeCalendarService):
 
   def event(self, id=None, **kwargs):
